@@ -8,24 +8,24 @@ import torch.nn as nn
 def multistart(
     num_curves: int,
     num_inits: int,
-    model: nn.Model,
+    model: nn.Module,
     x: torch.Tensor,
     y: torch.Tensor,
     device: torch.device = torch.device("cpu"),
-) -> nn.Model:
+) -> nn.Module:
     """
     Perform multi-start initialization to find the best parameters for each curve.
 
     Args:
         num_curves (int): Number of curves.
         num_inits (int): Number of initializations.
-        model (nn.Model): The model instance.
+        model (nn.Module): The model instance.
         x (torch.Tensor): Input tensor.
         y (torch.Tensor): Target tensor.
         device (torch.device, optional): Device to perform computations on. Defaults to CPU.
 
     Returns:
-        nn.Model: Model with optimised parameters.
+        nn.Module: Model with optimised parameters.
     """
     for name, param in model.named_parameters():
         new_param = nn.Parameter(torch.rand((num_inits, num_curves, 1)) * 4 - 3).to(device)

@@ -8,7 +8,7 @@ import torch.optim as optim
 def optimise_input(
     x: torch.Tensor,
     y: torch.Tensor,
-    model: nn.Model,
+    model: nn.Module,
     lower_bound: torch.Tensor,
     upper_bound: torch.Tensor,
     n_opt_epochs: int = 1000,
@@ -21,7 +21,7 @@ def optimise_input(
     Args:
         x (torch.Tensor): Current input tensor.
         y (torch.Tensor): Current output tensor.
-        model (nn.Model): The trained model.
+        model (nn.Module): The trained model.
         lower_bound (torch.Tensor): Lower bound for x.
         upper_bound (torch.Tensor): Upper bound for x.
         n_opt_epochs (int, optional): Number of optimisation epochs. Defaults to 1000.
