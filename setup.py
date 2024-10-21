@@ -9,8 +9,7 @@ setup(
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     url="https://github.com/cormac-rynne/ptoptlite",
-    packages=find_packages(where="ptoptlite"),
-    package_dir={"": "src"},
+    packages=find_packages(include=["ptoptlite", "ptoptlite.*"]),
     install_requires=[
         "torch",
         "numpy",
