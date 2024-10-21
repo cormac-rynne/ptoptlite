@@ -1,7 +1,7 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 setup(
-    name="loglog_model_package",
+    name="ptoptlite",
     version="0.1.0",
     author="Cormac Rynne",
     author_email="cormac.ry@gmail.com",
