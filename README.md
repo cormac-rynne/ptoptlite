@@ -36,7 +36,12 @@
 pip install https://github.com/cormac-rynne/potptlite.git
 ```
 
-## Example
+
+
+## Examples
+### [Link to Colab](https://colab.research.google.com/drive/17PWMMrHbzrWGrqOCq1KvfZwsXHzBXsLK?usp=sharing)
+
+### Example Usage
 ```python
 import torch
 from ptoptlite.models import LogLogModel
