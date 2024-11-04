@@ -1,4 +1,5 @@
-from typing import Tuple
+# optimisation.py
+from typing import Callable, Tuple
 
 import torch
 import torch.nn as nn
@@ -11,6 +12,7 @@ def optimise_input(
     model: nn.Module,
     lower_bound: torch.Tensor,
     upper_bound: torch.Tensor,
+    objective_fn: Callable,
     n_opt_epochs: int = 1000,
     learning_rate: float = 0.1,
     device: torch.device = torch.device("cpu"),
@@ -38,15 +40,15 @@ def optimise_input(
     for epoch in range(1, n_opt_epochs + 1):
         optimiser_opt.zero_grad()
         y_opt = model(x_opt)
-        loss = -y_opt.sum() + torch.abs(x_opt.sum() - x.sum().to(device))
+        loss = objective_fn(x_opt, y_opt, x, y)
         loss.backward()
         optimiser_opt.step()
 
         with torch.no_grad():
-            x_opt.clamp_(lower_bound.to(device), upper_bound.to(device))
+            x_opt.clamp_(lower_bound, upper_bound)
 
-        if epoch % 100 == 0 or epoch == 1:
-            total_y = y.sum().item()
+        if epoch % 1000 == 0 or epoch == 1:
+            total_y = y_opt.sum().item()
             print(f"Optimisation Epoch {epoch}/{n_opt_epochs}, Total y: {total_y:.2f}")
 
     optimised_x = x_opt.detach()

@@ -1,5 +1,8 @@
 from setuptools import find_packages, setup
 
+with open("requirements.txt", "r") as file:
+    requirements = file.read()
+
 setup(
     name="ptoptlite",
     version="0.1.0",
@@ -10,10 +13,7 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/cormac-rynne/ptoptlite",
     packages=find_packages(include=["ptoptlite", "ptoptlite.*"]),
-    install_requires=[
-        "torch",
-        "numpy",
-    ],
+    install_requires=requirements,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

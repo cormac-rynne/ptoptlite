@@ -1,3 +1,4 @@
+import inspect
 from typing import Optional
 
 import numpy as np
@@ -43,3 +44,8 @@ def multistart(
         setattr(model, name, nn.Parameter(selected_params).to(device))
 
     return model
+
+
+def get_param_names(function):
+    sig = inspect.signature(function)
+    return list(sig.parameters.keys())
