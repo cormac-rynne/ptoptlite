@@ -12,7 +12,10 @@ def optimise_input(
     model: nn.Module,
     lower_bound: torch.Tensor,
     upper_bound: torch.Tensor,
-    objective_fn: Callable,
+    objective_fn: Callable[
+        [torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor],
+        torch.Tensor,
+    ],
     n_opt_epochs: int = 1000,
     learning_rate: float = 0.1,
     device: torch.device = torch.device("cpu"),
@@ -26,6 +29,7 @@ def optimise_input(
         model (nn.Module): The trained model.
         lower_bound (torch.Tensor): Lower bound for x.
         upper_bound (torch.Tensor): Upper bound for x.
+        objective_fn (Callable): A function that computes the loss given x_opt, y_opt, x, y, and device.
         n_opt_epochs (int, optional): Number of optimisation epochs. Defaults to 1000.
         learning_rate (float, optional): Learning rate for the optimiser. Defaults to 0.1.
         device (torch.device, optional): Device to perform optimisation on. Defaults to CPU.
@@ -33,6 +37,8 @@ def optimise_input(
     Returns:
         Tuple[torch.Tensor, torch.Tensor]: Optimised x and corresponding y.
     """
+
+    lower_bound, upper_bound = lower_bound.to(device), upper_bound.to(device)
     model.to(device)
     x_opt = x.clone().detach().requires_grad_(True).to(device)
     optimiser_opt = optim.Adam([x_opt], lr=learning_rate)
